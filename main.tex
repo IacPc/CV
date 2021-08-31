@@ -195,6 +195,7 @@
 
 \definecolor{accentcol}{RGB}{59,77,97}
 
+\definecolor{linkcol}{RGB}{55, 75, 117}
 
 
 % Package for links, must be the last package used
@@ -205,7 +206,13 @@
 % can also be used for other boxes / environments
 \newcommand{\mpwidth}{\linewidth-\fboxsep-\fboxsep}
 	
-
+\hypersetup{
+    colorlinks=true,
+    linkcolor=accentcol,
+    urlcolor=linkcol,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+}
 
 %============================================================================%
 %
@@ -276,26 +283,6 @@
 		 
 	}
 }
-%----------------------------------------------------------------------------------------
-%	META SKILL
-%----------------------------------------------------------------------------------------
-
-% Renders a progress-bar to indicate a certain skill in percent.
-% param 1: name of the skill / tech / etc.
-% param 2: level (for example in years)
-% param 3: percent, values range from 0 to 1
-\newcommand{\cvskill}[3] {
-	\begin{tabular*}{1\mpwidth}{p{0.72\mpwidth}  r}
- 		\textcolor{black}{\textbf{#1}} & \textcolor{maincol}{#2}\\
-	\end{tabular*}%
-	
-	\hspace{4pt}
-	\begin{tikzpicture}[scale=1,rounded corners=2pt,very thin]
-		\fill [lightcol] (0,0) rectangle (1\mpwidth, 0.15);
-		\fill [accentcol] (0,0) rectangle (#3\mpwidth, 0.15);
-  	\end{tikzpicture}%
-}
-
 
 %----------------------------------------------------------------------------------------
 %	 CV EVENT
@@ -306,7 +293,7 @@
 % Additional Information can be passed in text or list form (or other environments).
 % the work you did
 % param 1: time-frame i.e. Sep 14 - Jan 15 etc.
-% param 2:	 event name (job position etc.)
+% param 2: event name (job position etc.)
 % param 3: Customer, Employer, Industry
 % param 4: Short description
 % param 5: work done (optional)
@@ -329,7 +316,33 @@
 	\vspace{14pt}
 }
 
+%----------------------------------------------------------------------------------------
+%	 CV SKILL
+%----------------------------------------------------------------------------------------
+% param 1: short name describing a particular skill (for example 'programming')
+% param 2: Short description
+% param 3: technologies include (optional)
+\newcommand{\cvskill}[3] {
+	
+	% we wrap this part in a parbox, so title and description are not separated on a pagebreak
+	% if you need more control on page breaks, remove the parbox
+	\parbox{\mpwidth}{
+		\begin{tabular*}{1\mpwidth}{p{0.66\mpwidth}  r}
+	 		\textcolor{black}{\textbf{#1}} \\
+		\end{tabular*}
+	
+		\ifthenelse{\isempty{#2}}{}{
+			\cvtext{#2}\\
+		}
+		
+		\ifthenelse{\isempty{#3}}{}{
+    	%	\vspace{4pt}
+    		{#3}
+	    }
 
+	}
+	\vspace{14pt}
+}
 %----------------------------------------------------------------------------------------
 %	 CV META EVENT
 %----------------------------------------------------------------------------------------
@@ -415,7 +428,7 @@
 
 % LEBENSLAUF HIERE
 \AtBeginShipoutFirst{\Header{CV}\Footer{1}}
-\AtBeginShipout{\AtBeginShipoutAddToBox{\Header{IACOPO PACINI CV} \Footer{2}}}
+\AtBeginShipout{\AtBeginShipoutAddToBox{\Header{IACOPO PACINI} \Footer{2}}}
 
 \newpage
 
@@ -439,39 +452,29 @@
 		\LARGE{\textbf{\textcolor{maincol}{Iacopo Pacini}}} \\[2pt]
 		\normalsize{ \textcolor{maincol} {Computer Engineering student(M. Sc.)} }
 \end{minipage}} \\
-\icontext{CaretRight}{12}{03/01/1996 in Tuscany}{black}\\[6pt]
+\icontext{CaretRight}{12}{Born in 03/01/1996}{black}\\[6pt]
 \icontext{CaretRight}{12}{italian}{black}\\[6pt]
 \icontext{CaretRight}{12}{unmarried}{black}\\[6pt]
 
 
 
-\cvsection{Skills}
 
-\cvskill{Software development} {} {0.3} \\[-2pt]
-
-\cvskill{Cyber security} {} {0.3} \\[-2pt]
-
-\cvskill{Web development} {} {0.1} \\[-2pt]
-
-\cvskill{FPGA programming} {} {0.2} \\[-2pt]
-
-\cvskill{Linux} {} {0.3} \\[-2pt]
-
-\cvskill{Italian} {L1} {1} \\[-2pt]
-
-\cvskill{English} {B2} {0.8} \\[-2pt]
-
-\newpage
+%\newpage
 %---------------------------------------------------------------------------------------
 %	EDUCATION
 %----------------------------------------------------------------------------------------
 \cvsection{Education}
-
 \cvmetaevent
 {10/2015 - 02/2020}
 {Computer Engineering (B.Sc.)}
 {University of Pisa}
-{Bachelor's thesis: \grqq A complete PBC library benchmark on Zolertia Remote device\grqq (103/110).}
+{Bachelor's thesis: \grqq A complete PBC library benchmark on Zolertia Remote device\grqq (93/110).}
+
+\cvmetaevent
+{02/2020 - Today}
+{Computer Engineering- Curriculum "Cybersecurity" (M.Sc.)}
+{University of Pisa}
+{GPA: \textasciitilde 25.2/30}
 
 
 %
@@ -491,6 +494,8 @@
 \icontext{CaretRight}{12}{Flautist}{black}\\[6pt]
 \icontext{CaretRight}{12}{Cooking}{black}\\[6pt]
 \icontext{CaretRight}{12}{Gardening}{black}\\[6pt]
+
+\newpage
 
 \cvsection{Contact}
 
@@ -514,8 +519,7 @@
 \vspace{4pt}
 
 \cvtext{
-My name is Iacopo Pacini, I was born in Italy in 1996 and i am currently attending the M.Sc. in Computer Engineering at the University Of Pisa. I have been a computer enthusiast since when I was 12, when my parents bought our first personal computer. I remember spending hours clicking on every icon i found just to discover what action they would trigger. Growing up I realized that the IT field is vast and full of exciting topics, so I enrolled the B.Sc. of Computer Engineering at the University Of Pisa where four years later i obtained the degree. During my university period i particularly developed a passion for networking protocols,electronics and the Linux OS.
-
+My name is Iacopo Pacini, I was born in Italy in 1996 and i am currently attending the M.Sc. in Computer Engineering at the University Of Pisa. I have been a computer enthusiast since when I was 12, when my parents bought our first personal computer. I remember spending hours clicking on every icon i found just to discover what action they would trigger. Growing up I realized that the IT field is vast and full of exciting topics, so I enrolled the B.Sc. of Computer Engineering at the University Of Pisa where four years later i obtained the degree. While studying i particularly developed a passion for networking protocols,electronics and the Linux OS.
 }
 
 %---------------------------------------------------------------------------------------
@@ -527,13 +531,67 @@ My name is Iacopo Pacini, I was born in Italy in 1996 and i am currently attendi
 \vspace{4pt}
 
 \cvevent
-{.... - today}
-	{Family business | casual labor}
-	{Domestic lightning shop\newline Tuscany}
-	{My job consisted in setting-up the point of sales, the store and mostly dealing directly with customers.}
+{.... - today} % param 1: time-frame i.e. Sep 14 - Jan 15 etc.
+	{Family business | casual labor} % param 2:	 event name (job position etc.)
+	{Domestic lightning shop\newline Tuscany}% param 3: Customer, Employer, Industry
+	{My job consisted in setting-up the point of sales, the store and mostly dealing directly with customers.}% param 4: Short description
+
 	\vfill\null
 
 
+%---------------------------------------------------------------------------------------
+%	TECHNICAL SKILLS
+%----------------------------------------------------------------------------------------
+
+\vspace{10pt}
+\cvsection{Technical skills}
+\vspace{4pt}
+\cvskill
+    {Programming skills}
+    {}
+    {\cvlist{
+		\item \textbf{C/C++}: strong basis on algorithm and data structure, on socket programming and secure coding(\href{https://github.com/IacPc/Secure4InArow}{implementation of a secure version of the "4 In A Row" game})
+		\item \textbf{Database Management System}: strong background on relational, graph and document DBs architecture. 
+		\begin{itemize}
+		    \item Hands-on project on \textbf{Mysql} server queries(including sub-queries, stored procedures, triggers, event and stored functions) and analytics.
+		    \item Ongoing university project on \textbf{Java + MongoDB + Neo4J} application implementing a simple programming forum.
+		\end{itemize} 
+		\item \textbf{Java}:basic knowledge of JRE, Java Collections, Garbage Collection, Java Threads, Executor framework, memory consistency model and database drivers.
+		\item\textbf{Python}:basic knowledge of Python for automated scripting, data analysis(Numpy, Pandas) and visualization(Matplotlib) and binary code injection.
+		\item\textbf{Android}: basic knowledge of Android programming acquired during the development of \href{https://github.com/IacPc/CatchAMole}{"CatchAMole" project}
+	}}
+\cvskill
+    {Computer Architecture}
+    {Basic knowledge of Intel/Amd instruction set architecture. Familiarity with cache architecture, super-scalar processors, virtual memory and speculative execution. }
+    {}
+	
+\cvskill
+    {Electronics}
+    {solid basis on transistor circuit, Operational amplifier, logic gates and sequential logic.
+    Hands-on projects on the implementation digital integrated circuits design over FPGA in both VHDL and SystemVerilog languages(\href{https://github.com/IacPc/AES_Sbox_based_Stream_Cipher}{AES S-Box based stream cipher}, \href{https://github.com/IacPc/Secure-Sequence-Recognizer}{Secure Sequence Recognizer})}
+    {}
+	
+\cvskill
+    {Networking}
+    {Familiarity with the TCP/IP architecture, IPV4, Switched Ethernet, transport layer protocols(TCP/UDP)and routing protocols(RIP,OSPF)}
+    {}
+\cvskill
+    {Simulations and Performance Analysis}
+    {Basic Knowledge of the principles of discrete event simulation: events, event queues, random number generation. Basic notion of analytical system modeling and capacity planning. Structure of a simulator software. \\ Hands-on experiments with the OMNET++ framework( \href{https://github.com/IacPc/FacultyBar}{ "Faculty bar"} )}
+    {}	
+\cvskill
+    {CyberSecurity}
+    {Familiarity with the most popular techniques for encryption, secure authentication and digital signature(AES, RSA, MACs, ElGamal, ECC, SSL). Basic skills on web security,Binary exploitation(ROP, Format strings, buffer overflow, GOT exploitation, heap overflow), VM escaping and kernel exploitation.}
+    {}	
+\cvskill
+    {Linux System Administration}
+    {Basic knowledge of:}
+    {\cvlist{
+		\item File Systems Hierarchy;
+		\item Bash Commands(GREP, AWK,SED);
+		\item Handling of file, directories;
+		\item Modern Linux security: Apparmor, capabilities, namespaces, control groups;
+	}}	
 
 % hofixes to create fake-space to ensure the whole height is used
 \mbox{}
@@ -549,6 +607,73 @@ My name is Iacopo Pacini, I was born in Italy in 1996 and i am currently attendi
 \mbox{}
 \vfill
 \mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
+\mbox{}
+\vfill
 
 
 \today     \hspace{1cm}   \hrulefill
